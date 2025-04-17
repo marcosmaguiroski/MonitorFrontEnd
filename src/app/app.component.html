@@ -1,0 +1,34 @@
+<mat-toolbar color="primary" class="toolbar">
+  <div class="toolbar-container">
+    <span class="toolbar-title">Phaser Status Monitor</span>
+    <span class="spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+      <mat-icon svgIcon="menu" class="toolbar-icon"></mat-icon>
+    </button>
+
+    <mat-menu #settingsMenu="matMenu" class="custom-menu">
+      <!-- Item de Configurações -->
+      <button mat-menu-item (click)="openPhaserConfigDialog()">
+        <mat-icon svgIcon="settings" class="menu-icon"></mat-icon>
+        <span class="menu-item-text">Configurações</span>
+      </button>
+
+      <!-- Item de Alterar IP -->
+      <button mat-menu-item (click)="openPhaserIpDialog()">
+        <mat-icon svgIcon="network_ping" class="menu-icon"></mat-icon>
+        <span class="menu-item-text">Alterar IP</span>
+      </button>
+
+      <!-- Divisor Estilizado -->
+      <mat-divider class="menu-divider"></mat-divider>
+
+      <!-- Item Sobre o Dispositivo -->
+      <button mat-menu-item (click)="openPhaserAboutDialog()">
+        <mat-icon svgIcon="question_mark" class="menu-icon"></mat-icon>
+        <span class="menu-item-text">Sobre o dispositivo</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

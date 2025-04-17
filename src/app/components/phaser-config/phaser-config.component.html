@@ -1,0 +1,111 @@
+<div class="dialog-header">
+  <h2>Configurações de Rede</h2>
+</div>
+
+<mat-dialog-content [formGroup]="form">
+  @if (loading) {
+    <div class="fullscreen-loading">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span class="loading-text">Carregando...</span>
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+  }
+  @else {
+    <div class="config-content">
+      <mat-checkbox formControlName="dhcp">Usar DHCP (IP Automático)</mat-checkbox>
+
+      @if (!form.get('dhcp')?.value) {
+        <div class="manual-config">
+          <p class="required-fields-info">
+            Campos marcados com <span class="required-asterisk">*</span> são obrigatórios
+          </p>
+
+          <!-- Endereço IP -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Endereço IP</mat-label>
+            <input matInput formControlName="ipAddress"
+                   placeholder="Ex: 192.168.1.100"
+                   [errorStateMatcher]="matcher">
+            @if (form.get('ipAddress')?.hasError('required')) {
+              <mat-error>Campo obrigatório</mat-error>
+            }
+            @if (form.get('ipAddress')?.hasError('pattern')) {
+              <mat-error>Formato IPv4 inválido</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Máscara de Rede -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Máscara de Rede</mat-label>
+            <input matInput formControlName="netMask"
+                   placeholder="Ex: 255.255.255.0"
+                   [errorStateMatcher]="matcher">
+            @if (form.get('netMask')?.hasError('required')) {
+              <mat-error>Campo obrigatório</mat-error>
+            }
+            @if (form.get('netMask')?.hasError('invalidNetmask')) {
+              <mat-error>Máscara de rede inválida</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Gateway -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Gateway</mat-label>
+            <input matInput formControlName="gateway"
+                   placeholder="Ex: 192.168.100.1"
+                   [errorStateMatcher]="matcher">
+            @if (form.get('gateway')?.hasError('required')) {
+              <mat-error>Campo obrigatório</mat-error>
+            }
+            @if (form.get('gateway')?.hasError('pattern')) {
+              <mat-error>Formato IPv4 inválido</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- DNS Primário -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>DNS Primário</mat-label>
+            <input matInput formControlName="dnsPrimary"
+                   placeholder="Ex: 8.8.8.8"
+                   [errorStateMatcher]="matcher">
+            @if (form.get('dnsPrimary')?.hasError('required')) {
+              <mat-error>Campo obrigatório</mat-error>
+            }
+            @if (form.get('dnsPrimary')?.hasError('pattern')) {
+              <mat-error>Formato IPv4 inválido</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- DNS Secundário -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>DNS Secundário</mat-label>
+            <input matInput formControlName="dnsSecondary"
+                   placeholder="Ex: 8.8.4.4"
+                   [errorStateMatcher]="matcher">
+            @if (form.get('dnsSecondary')?.hasError('required')) {
+              <mat-error>Campo obrigatório</mat-error>
+            }
+            @if (form.get('dnsSecondary')?.hasError('pattern')) {
+              <mat-error>Formato IPv4 inválido</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      }
+    </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button
+          (click)="dialogRef.close()"
+          [disabled]="loading">
+    Cancelar
+  </button>
+
+  <button mat-raised-button
+          color="primary"
+          (click)="onSave()"
+          [disabled]="form.invalid || loading">
+    Salvar
+  </button>
+</mat-dialog-actions>

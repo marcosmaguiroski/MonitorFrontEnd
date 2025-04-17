@@ -1,0 +1,412 @@
+
+@use '@angular/material' as mat;
+// Variables
+$primary-color: #FD7E14;
+$secondary-color: #FFF3E0;
+$error-color: #d32f2f;
+$text-light: white;
+$text-dark: #424242;
+$menu-divider: rgba(255,255,255,0.4);
+$hover-effect: rgba(255,255,255,0.1);
+$transition-default: all 0.3s cubic-bezier(0.4,0,0.2,1);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+@mixin hover-effect {
+  transition: $transition-default;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(253,126,20,0.15);
+  }
+}
+
+// Base Styles
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: $secondary-color;
+}
+
+// Common Components
+.mat-toolbar.mat-primary,
+.custom-menu,
+.mat-menu-panel {
+  background-color: $primary-color !important;
+  color: $text-light !important;
+}
+
+// Toolbar
+.mat-toolbar {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  
+  .toolbar-container {
+    @include flex-center;
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .toolbar-title {
+    font: 500 1.5rem/1.5 Roboto;
+    letter-spacing: 0.5px;
+  }
+}
+
+.spacer { 
+  flex: 1 1 auto; 
+}
+
+// Menu
+.mat-menu-item, 
+.mat-icon-button mat-icon {
+  color: #FFF3E0;
+  transition: $transition-default;
+}
+
+.mat-menu-item {
+  font-weight: 500;
+  padding: 0 16px !important;
+  height: 48px !important;
+  line-height: 48px !important;
+
+  &:hover:not([disabled]) {
+    background-color: $hover-effect !important;
+    transform: translateX(4px);
+    box-shadow: 2px 0 8px rgba(255,255,255,0.1);
+    
+    mat-icon {
+      transform: scale(1.1);
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+    }
+  }
+}
+
+.menu-divider {
+  border-top: 2px solid $menu-divider !important;
+  margin: 12px 0;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255,255,255,0.6) 50%, 
+      transparent 100%
+    );
+  }
+}
+.menu-item-text {
+color: #FFFFFF;
+}
+// Dashboard
+.main-container {
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.phaser-group, 
+.gauge-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  @include card-shadow;
+  transition: $transition-default;
+}
+
+.phaser-group {
+  margin-bottom: 32px;
+  padding: 20px;
+  @include hover-effect;
+}
+
+.gauges-container {
+  display: grid;
+  gap: 24px;
+  margin-top: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.gauge-card {
+  border: 1px solid rgba(253,126,20,0.1);
+  overflow: hidden;
+  @include hover-effect;
+}
+
+.phaser-header {
+  @include flex-center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 0 16px;
+
+  h2 {
+    color: $text-dark;
+    margin: 0;
+    font: 500 1.3rem/1.2 Roboto;
+  }
+}
+
+// Dialogs
+.mat-dialog-container {
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  background: $secondary-color !important;
+  display: flex !important;
+  flex-direction: column;
+  max-height: 90vh !important;
+}
+
+.dialog-header {
+  background: $primary-color !important;
+  color: $text-light !important;
+  padding: 18px 24px !important;
+  @include flex-center;
+  
+  h2 {
+    margin: 0 !important;
+    font: 500 1.4rem/1.2 Roboto !important;
+    letter-spacing: 0.3px;
+    @include flex-center;
+    gap: 8px;
+  }
+}
+
+.mat-dialog-content {
+  padding: 24px !important;
+  margin: 0 !important;
+  flex: 1;
+  overflow: hidden !important;
+  color: $text-dark !important;
+  
+  .form-section {
+    margin-bottom: 2rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .global-error {
+    display: block;
+    margin-top: -8px;
+    margin-bottom: 16px;
+    font-size: 0.8em !important;
+  }
+}
+
+.dialog-actions {
+  padding: 16px 24px !important;
+  background: rgba(253,126,20,0.05) !important;
+  border-top: 1px solid rgba(253,126,20,0.1) !important;
+  display: flex !important;
+  gap: 12px !important;
+  justify-content: flex-end !important;
+  
+  button {
+    min-width: 120px !important;
+    border-radius: 25px !important;
+    padding: 8px 20px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease !important;
+    
+    &[mat-button] {
+      color: $primary-color;
+      
+      &:hover {
+        background: rgba(253,126,20,0.1);
+      }
+    }
+
+    &[mat-raised-button] {
+      background: $primary-color;
+      color: $text-light;
+      
+      &:hover {
+        background: #E56D00;
+        box-shadow: 0 2px 6px rgba(253,126,20,0.3);
+      }
+    }
+  }
+}
+
+// Forms
+.mat-form-field {
+  width: 100%;
+  
+  &.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(253,126,20,0.15) !important;
+  }
+  
+  .mat-form-field-label {
+    color: $text-dark !important;
+    opacity: 0.8 !important;
+  }
+  
+  .mat-input-element {
+    caret-color: $primary-color !important;
+    color: $text-dark !important;
+  }
+  
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+}
+
+// Icons
+.dialog-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  
+  &.settings-icon {
+    color: $text-light;
+  }
+  
+  &.network-icon {
+    color: #4CAF50;
+  }
+  
+  &.info-icon {
+    color: #2196F3;
+  }
+}
+
+// Snackbars
+$snackbar-warning: #FFC107;  // Amarelo
+$snackbar-error: #F44336;    // Vermelho
+$snackbar-info: #2196F3;     // Azul
+$snackbar-success: #4CAF50;  // Verde
+$snackbar-text: #212121;     // Texto escuro
+$snackbar-light-text: #FFFFFF; // Texto claro
+
+// Mixin para estilos comuns
+@mixin snackbar-base {
+  border-radius: 4px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 14px !important;
+  padding: 14px 24px !important;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2) !important;
+  display: flex !important;
+  align-items: center !important;
+  
+  .mat-snack-bar-label {
+    padding-right: 8px;
+    flex-grow: 1;
+  }
+  
+  .mat-snack-bar-action {
+    margin-left: 24px !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px;
+    border-radius: 2px;
+    padding: 2px 8px;
+  }
+}
+
+// Estilo para warning (amarelo)
+.mat-snack-bar-container.warning-snackbar {
+  @include snackbar-base;
+  background-color: $snackbar-warning !important;
+  color: $snackbar-text !important;
+  
+  .mat-snack-bar-action {
+    color: darken($snackbar-warning, 40%) !important;
+    background-color: rgba(0, 0, 0, 0.08);
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+// Estilo para error (vermelho)
+.mat-snack-bar-container.error-snackbar {
+  @include snackbar-base;
+  background-color: $snackbar-error !important;
+  color: $snackbar-light-text !important;
+  
+  .mat-snack-bar-action {
+    color: lighten($snackbar-error, 40%) !important;
+    background-color: rgba(255, 255, 255, 0.15);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+  }
+}
+
+// Estilo para info (azul)
+.mat-snack-bar-container.info-snackbar {
+  @include snackbar-base;
+  background-color: $snackbar-info !important;
+  color: $snackbar-light-text !important;
+  
+  .mat-snack-bar-action {
+    color: lighten($snackbar-info, 40%) !important;
+    background-color: rgba(255, 255, 255, 0.15);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+  }
+}
+
+// Estilo para success (verde)
+.mat-snack-bar-container.success-snackbar {
+  @include snackbar-base;
+  background-color: $snackbar-success !important;
+  color: $snackbar-light-text !important;
+  
+  .mat-snack-bar-action {
+    color: lighten($snackbar-success, 40%) !important;
+    background-color: rgba(255, 255, 255, 0.15);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+  }
+}
+// Responsiveness
+@media (max-width: 768px) {
+  .gauges-container { 
+    grid-template-columns: 1fr; 
+  }
+  
+  .toolbar-title { 
+    font-size: 1.2rem; 
+  }
+  
+  .phaser-group {
+    margin-bottom: 24px;
+    padding: 15px;
+  }
+  
+  .mat-dialog-container {
+    max-width: 95vw !important;
+  }
+  
+  .dialog-actions {
+    flex-wrap: wrap;
+    justify-content: center !important;
+    
+    button {
+      min-width: 100px !important;
+      flex: 1;
+    }
+  }
+}

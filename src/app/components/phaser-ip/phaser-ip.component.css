@@ -1,0 +1,43 @@
+
+.loading-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 24px;
+  border-top: 1px solid #eee;
+}
+
+.required-fields-info {
+  color: #666;
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+.required-asterisk {
+  color: #f44336;
+  font-weight: bold;
+}
+
+
+
+/* Estilos para o container do diálogo */
+.mat-dialog-container {
+  overflow: hidden !important; /* Impede qualquer tipo de scroll */
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column;
+  max-height: 90vh !important; /* Ajuste a altura máxima conforme necessário */
+}
+

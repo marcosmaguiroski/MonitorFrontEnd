@@ -1,0 +1,83 @@
+<div class="main-container">
+  <!-- Phasers -->
+  @for (index of [0, 1]; track index) {
+    <div class="phaser-group" [class.offline]="!isOnline()">
+      <div class="phaser-header">
+        <h2>Phaser {{ index + 1 }}</h2>
+        <div class="status-message">
+          @if (!isOnline()) {
+            <div class="error-message">⚠️ Sem conexão com a internet</div>
+          } @else if (errorMessages()[index]) {
+            <div class="error-message">{{ errorMessages()[index] }}</div>
+          } @else if (isDeviceOffline(index)) {
+            <div class="error-message">⚠️ Sem comunicação com o dispositivo</div>
+          } @else if (phaserData()[index].voltage === 0) {
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          }
+        </div>
+      </div>
+
+      <div class="gauges-container">
+        <!-- Tensão -->
+        <mat-card class="gauge-card" [class.disabled]="!isOnline() || isDeviceOffline(index)">
+          <ngx-gauge
+            [value]="shouldShowData(index) ? (phaserData()[index].voltage || 0) : 0"
+            label="Tensão"
+            append="V"
+            [min]="0"
+            [max]="350"
+            [thick]="12"
+            [size]="gaugeSize()"
+            [foregroundColor]="getGaugeColor(index)"
+            backgroundColor="rgba(0,0,0,0.1)"
+          >
+            <ngx-gauge-value>
+              {{ shouldShowData(index) ? formatValue(phaserData()[index].voltage) : '--' }}
+            </ngx-gauge-value>
+          </ngx-gauge>
+        </mat-card>
+
+        <!-- Corrente -->
+        <mat-card class="gauge-card"
+                 [class.disabled]="!isOnline() || isDeviceOffline(index)"
+                 (click)="shouldShowData(index) ? toggleCurrentDisplay(index) : null">
+          <ngx-gauge
+            [value]="shouldShowData(index) ? getCurrentValue(index) : 0"
+            [label]="showCurrent()[index] ? 'Corrente Total' : 'Corrente por ave'"
+            [append]="showCurrent()[index] ? 'A' : 'mA'"
+            [min]="0"
+            [max]="showCurrent()[index] ? 10 : 200"
+            [thick]="12"
+            [size]="gaugeSize()"
+            [foregroundColor]="getGaugeColor(index)"
+            backgroundColor="rgba(0,0,0,0.1)"
+          >
+            <ngx-gauge-value>
+               {{ shouldShowData(index) ? formatValue(getCurrentValue(index), showCurrent()[index]) : '--' }}
+            </ngx-gauge-value>
+          </ngx-gauge>
+        </mat-card>
+
+        <!-- Frequência -->
+        <mat-card class="gauge-card" [class.disabled]="!isOnline() || isDeviceOffline(index)">
+          <ngx-gauge
+            [value]="shouldShowData(index) ? (phaserData()[index].frequency || 0) : 0"
+            label="Frequência"
+            append="Hz"
+            [min]="0"
+            [max]="3000"
+            [thick]="12"
+            [size]="gaugeSize()"
+            [foregroundColor]="getGaugeColor(index)"
+            backgroundColor="rgba(0,0,0,0.1)"
+          >
+            <ngx-gauge-value>
+              {{ shouldShowData(index) ? formatValue(phaserData()[index].frequency) : '--' }}
+            </ngx-gauge-value>
+          </ngx-gauge>
+        </mat-card>
+      </div>
+    </div>
+  }
+</div>
+<router-outlet></router-outlet>

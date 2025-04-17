@@ -1,0 +1,57 @@
+<div class="dialog-header">
+  <h2>Alterar IPs dos Phasers</h2>
+</div>
+
+<mat-dialog-content [formGroup]="form">
+  <!-- Phaser 0 (exibido como Phaser 1) -->
+  <div class="phaser-ip-group">
+    <h3>Phaser {{ initialData.phaser0.id + 1 }}</h3>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>IP</mat-label>
+      <input matInput formControlName="phaser0Ip" placeholder="Ex: 192.168.1.10">
+      @if (form.get('phaser0Ip')?.invalid && form.get('phaser0Ip')?.touched) {
+        <mat-error>IP inválido</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <!-- Phaser 1 (exibido como Phaser 2) -->
+  <div class="config-content">
+    <h3>Phaser {{ initialData.phaser1.id + 1 }}</h3>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>IP</mat-label>
+      <input matInput formControlName="phaser1Ip" placeholder="Ex: 192.168.1.11">
+      @if (form.get('phaser1Ip')?.invalid && form.get('phaser1Ip')?.touched) {
+        <mat-error>IP inválido</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  @if (form.hasError('atLeastOneRequired')) {
+    <mat-error class="global-error">
+      Preencha pelo menos um IP válido
+    </mat-error>
+  }
+
+  @if (errorMessage) {
+    <mat-error class="global-error">
+      {{ errorMessage }}
+    </mat-error>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onSave()"
+    [disabled]="form.invalid || loading"
+  >
+    @if (loading) {
+      <mat-spinner diameter="20"></mat-spinner>
+    } @else {
+      <span>Salvar</span>
+    }
+  </button>
+</mat-dialog-actions>

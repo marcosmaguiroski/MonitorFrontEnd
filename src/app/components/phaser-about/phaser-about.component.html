@@ -1,0 +1,40 @@
+<div class="dialog-header">
+  <h2>Informações do Dispositivo</h2>
+</div>
+
+<mat-dialog-content>
+  @if (loading) {
+    <div class="loading-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  } @else {
+    <div class="content-wrapper">
+      <div class="status-indicator-container">
+        <span
+          [class.online]="(statusText$ | async) === 'Conectado'"
+          [class.offline]="(statusText$ | async)?.includes('Offline')"
+          class="status-indicator"
+        >
+          {{ statusText$ | async }}
+        </span>
+      </div>
+
+      <div class="device-info">
+        <p><strong>IP Local:</strong> {{ displayIP }}</p>
+        <p><strong>MAC Address:</strong> {{ deviceInfo.macAddress }}</p>
+        <p><strong>Data/Hora:</strong> {{ deviceInfo.dateTime }}</p>
+        <p><strong>Versão:</strong> {{ deviceInfo.softwareVersion }}</p>
+      </div>
+
+      @if (apiError) {
+        <mat-error class="global-error">
+          ⚠️ Não foi possível atualizar os dados. Tentando novamente...
+        </mat-error>
+      }
+    </div>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions class="dialog-actions">
+  <button mat-button mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

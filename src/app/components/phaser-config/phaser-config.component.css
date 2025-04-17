@@ -1,0 +1,115 @@
+/* Variáveis de cores para snackbars */
+:root {
+  --success: #4CAF50;
+  --error: #f44336;
+  --warning: #ff9800;
+}
+
+/* Snackbars */
+.success-snackbar, .error-snackbar, .warning-snackbar {
+  color: white !important;
+  padding: 12px 24px !important;
+  border-radius: 4px;
+}
+
+.success-snackbar { background-color: var(--success) !important; }
+.error-snackbar { background-color: var(--error) !important; }
+.warning-snackbar { background-color: var(--warning) !important; }
+
+/* Estilos base do diálogo */
+.mat-dialog-container {
+  overflow: hidden !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+
+.mat-dialog-content {
+  overflow: hidden !important;
+  max-height: 100%;
+  margin: 0 !important;
+  padding: 0 24px !important;
+  flex: 1;
+}
+
+/* Formatação de campos */
+mat-form-field {
+  margin-bottom: 12px !important;
+  width: 100%;
+}
+
+mat-checkbox {
+  margin-bottom: 16px !important;
+}
+
+mat-error {
+  font-size: 0.75em !important;
+  margin-top: 4px;
+}
+
+/* Overlay de carregamento */
+.fullscreen-loading {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.loading-text {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Cabeçalho do diálogo */
+.dialog-header {
+  position: relative;
+  z-index: 1001;
+  background: white;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Ações do diálogo */
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px;
+  border-top: 1px solid #eee;
+}
+
+/* Informações de campos obrigatórios */
+.required-fields-info {
+  color: #666;
+  font-size: 0.9em;
+  margin: 16px 0;
+}
+
+.required-asterisk {
+  color: #ff4444;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+/* Classe de acessibilidade */
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
